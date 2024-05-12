@@ -18,6 +18,7 @@ func ConnectDB() {
 		User:     os.Getenv("DB_USER"),
 		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   os.Getenv("DB_NAME"),
+		SSLMode:  "disable",
 	}
 
 	db, err := pgConfig.Connect()

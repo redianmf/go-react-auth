@@ -36,8 +36,8 @@ type PostgresConnection struct {
 }
 
 func (p *PostgresConnection) Connect() (DBConnection, error) {
-	dsn := "host=%s port=%s user=%s " + "password=%s dbname=%s sslmode=disable"
-	p.Config.dialector = postgres.Open(fmt.Sprintf(dsn, p.Config.Host, p.Config.Port, p.Config.User, p.Config.Password, p.Config.DBName))
+	dsn := "host=%s port=%s user=%s " + "password=%s dbname=%s sslmode=%s"
+	p.Config.dialector = postgres.Open(fmt.Sprintf(dsn, p.Config.Host, p.Config.Port, p.Config.User, p.Config.Password, p.Config.DBName, p.Config.SSLMode))
 	db, err := p.Config.Connect()
 
 	return db, err
