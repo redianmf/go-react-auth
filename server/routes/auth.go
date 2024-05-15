@@ -1,11 +1,12 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/redianmf/go-react-auth/controllers"
+)
 
 func AuthRoutes(route *gin.Engine) {
 	auth := route.Group("/auth")
 
-	auth.GET("/users", func(ctx *gin.Context) {
-		ctx.JSON(200, "List users")
-	})
+	auth.POST("/register", controllers.Register)
 }
