@@ -23,7 +23,10 @@ func Register(c *gin.Context) {
 	// Check empty payload
 	if user.Name == "" || user.Email == "" || user.Password == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"error": "Incomplete data",
+			"error": map[string]any{
+				"code":    http.StatusBadRequest,
+				"message": "Incomplete data",
+			},
 		})
 		return
 	}
@@ -32,7 +35,10 @@ func Register(c *gin.Context) {
 	database.DB.Where("email = ?", user.Email).First(&existingUser)
 	if existingUser != (models.User{}) {
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"error": "Email already exist",
+			"error": map[string]any{
+				"code":    http.StatusUnprocessableEntity,
+				"message": "Email already exist",
+			},
 		})
 		return
 	}
@@ -47,13 +53,17 @@ func Register(c *gin.Context) {
 
 	if err = database.DB.Create(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"error": "Unable to register user",
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": "Unable to register user",
+			},
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"code": http.StatusOK,
-		"data": user,
+		"code":    http.StatusOK,
+		"message": "Success register user",
+		"data":    user,
 	})
 }
