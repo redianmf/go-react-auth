@@ -1,11 +1,13 @@
 package controllers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/redianmf/go-react-auth/database"
 	"github.com/redianmf/go-react-auth/models"
+	"github.com/redianmf/go-react-auth/services"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -65,5 +67,98 @@ func Register(c *gin.Context) {
 		"code":    http.StatusOK,
 		"message": "Success register user",
 		"data":    user,
+	})
+}
+
+func Login(c *gin.Context) {
+	var (
+		user            models.User
+		existingUser    models.User
+		userApiResponse models.UserApiResponse
+	)
+
+	err := c.ShouldBindJSON(&user)
+	if err != nil {
+		panic(err)
+	}
+
+	// Validate input
+	if user.Email == "" || user.Password == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusBadRequest,
+				"message": "Please enter username and password",
+			},
+		})
+		return
+	}
+
+	// Check if user exist
+	database.DB.Where("email = ?", user.Email).First(&existingUser)
+	if existingUser.ID == 0 {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusNotFound,
+				"message": "User not found",
+			},
+		})
+		return
+	}
+
+	// Compare hashed password
+	err = bcrypt.CompareHashAndPassword([]byte(existingUser.Password), []byte(user.Password))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusBadRequest,
+				"message": "Invalid email or password",
+			},
+		})
+		return
+	}
+
+	// Create auth token
+	jwtService := services.Jwt{}
+	authToken, err := jwtService.CreateAuthToken(user)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": "Cannot create auth token",
+			},
+		})
+		return
+	}
+
+	// Transform struct
+	userJson, err := json.Marshal(existingUser)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": "Error user data",
+			},
+		})
+		return
+	}
+
+	err = json.Unmarshal(userJson, &userApiResponse)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": "Error user data",
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": "Login success",
+		"data": map[string]any{
+			"user":  userApiResponse,
+			"token": authToken,
+		},
 	})
 }
