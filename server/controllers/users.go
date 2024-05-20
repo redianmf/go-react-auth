@@ -119,7 +119,7 @@ func Login(c *gin.Context) {
 
 	// Create auth token
 	jwtService := services.Jwt{}
-	authToken, err := jwtService.CreateAuthToken(user)
+	authToken, err := jwtService.CreateAuthToken(existingUser)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": map[string]any{
@@ -161,4 +161,61 @@ func Login(c *gin.Context) {
 			"token": authToken,
 		},
 	})
+}
+
+func RefreshAuthToken(c *gin.Context) {
+	var (
+		user     models.User
+		token    models.AuthToken
+		newToken models.AuthToken
+	)
+
+	err := c.ShouldBindJSON(&token)
+	if err != nil {
+		panic(err)
+	}
+
+	// Check empty payload
+	if token.RefreshToken == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusBadRequest,
+				"message": "Refresh token not found",
+			},
+		})
+		return
+	}
+
+	// Validate refresh token
+	jwtService := services.Jwt{}
+	user, err = jwtService.ValidateRefreshToken(token)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusUnauthorized,
+				"message": err.Error(),
+			},
+		})
+		return
+	}
+
+	newToken, err = jwtService.CreateAuthToken(user)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": err.Error(),
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": "Refreshing token success",
+		"data": map[string]any{
+			"token": newToken,
+		},
+	})
+
 }

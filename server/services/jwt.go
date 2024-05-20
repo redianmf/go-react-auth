@@ -66,11 +66,7 @@ func (Jwt) ValidateAccessToken(accessToken string) (models.User, error) {
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
-		if float64(time.Now().Unix()) > claims["exp"].(float64) {
-			return user, errors.New("token expired")
-		}
-		user.UserId = claims["sub"].(uuid.UUID)
-
+		user.UserId = uuid.MustParse(claims["sub"].(string))
 		return user, nil
 	}
 
@@ -109,11 +105,7 @@ func (j Jwt) ValidateRefreshToken(model models.AuthToken) (models.User, error) {
 		return user, errors.New("invalid token")
 	}
 
-	if float64(time.Now().Unix()) > payload["exp"].(float64) {
-		return user, errors.New("token expired")
-	}
-
-	user.UserId = payload["user_id"].(uuid.UUID)
+	user.UserId = uuid.MustParse(payload["sub"].(string))
 
 	return user, nil
 }
