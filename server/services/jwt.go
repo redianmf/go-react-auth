@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -16,14 +17,22 @@ type Jwt struct{}
 func (j Jwt) CreateAuthToken(user models.User) (models.AuthToken, error) {
 	var err error
 
+	accessTokenExpireDuration, err := strconv.Atoi(os.Getenv("JWT_ACCESS_TOKEN_EXPIRE"))
+	if err != nil {
+		panic(err)
+	}
+
+	accessTokenExpiredTime := time.Now().Add(time.Second * time.Duration(accessTokenExpireDuration))
+
 	// Generate JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": user.UserId,
-		"exp": time.Now().Add(time.Hour * 1).Unix(),
+		"exp": accessTokenExpiredTime.Unix(),
 	})
 
 	var authToken models.AuthToken
 
+	authToken.AccessTokenExp = accessTokenExpiredTime
 	authToken.AccessToken, err = token.SignedString([]byte(os.Getenv("SECRET")))
 	if err != nil {
 		return authToken, err
@@ -35,12 +44,20 @@ func (j Jwt) CreateAuthToken(user models.User) (models.AuthToken, error) {
 func (Jwt) createRefreshToken(authToken models.AuthToken) (models.AuthToken, error) {
 	var err error
 
+	refreshTokenExpireDuration, err := strconv.Atoi(os.Getenv("JWT_REFRESH_TOKEN_EXPIRE"))
+	if err != nil {
+		panic(err)
+	}
+
+	refreshTokenExpiredTime := time.Now().Add(time.Second * time.Duration(refreshTokenExpireDuration))
+
 	// Generate JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"token": authToken.AccessToken,
-		"exp":   time.Now().Add(time.Hour * 24 * 7).Unix(),
+		"exp":   refreshTokenExpiredTime.Unix(),
 	})
 
+	authToken.RefreshTokenExp = refreshTokenExpiredTime
 	authToken.RefreshToken, err = token.SignedString([]byte(os.Getenv("SECRET")))
 	if err != nil {
 		return authToken, err
@@ -90,6 +107,10 @@ func (j Jwt) ValidateRefreshToken(model models.AuthToken) (models.User, error) {
 
 	payload, ok := token.Claims.(jwt.MapClaims)
 	if !(ok && token.Valid) {
+		return user, errors.New("invalid token")
+	}
+
+	if payload["token"].(string) != model.AccessToken {
 		return user, errors.New("invalid token")
 	}
 
