@@ -13,7 +13,7 @@ func ValidateAuth(c *gin.Context) {
 	jwtService := services.Jwt{}
 
 	// Get JWT from header
-	tokenString, err := getJWT(c.GetHeader("Authorization"))
+	tokenString, err := GetJWT(c.GetHeader("Authorization"))
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "token not found",
@@ -32,7 +32,7 @@ func ValidateAuth(c *gin.Context) {
 	c.Next()
 }
 
-func getJWT(authString string) (token string, err error) {
+func GetJWT(authString string) (token string, err error) {
 	if authString == "" {
 		return "", errors.New("please authenticate")
 	}

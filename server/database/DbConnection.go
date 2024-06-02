@@ -31,4 +31,5 @@ func ConnectDB() {
 
 	// Migrations
 	db.Statement.AutoMigrate(&models.User{})
+	db.Statement.AutoMigrate(&models.UserLoginData{})
 }
