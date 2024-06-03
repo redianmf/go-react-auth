@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/redianmf/go-react-auth/database"
@@ -129,6 +130,18 @@ func Login(c *gin.Context) {
 			"error": map[string]any{
 				"code":    http.StatusInternalServerError,
 				"message": "Cannot create auth token",
+			},
+		})
+		return
+	}
+
+	// Soft delete user login data if already expired or not active
+	deleteLoginData := database.DB.Delete(&models.UserLoginData{}, "user_id = ? AND expired_at < ? OR is_active = ?", existingUser.UserId, time.Now(), false)
+	if deleteLoginData.Error != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": "Cannot login",
 			},
 		})
 		return
