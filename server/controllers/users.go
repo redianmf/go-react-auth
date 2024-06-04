@@ -79,6 +79,8 @@ func Login(c *gin.Context) {
 		userApiResponse models.UserApiResponse
 	)
 
+	tx := database.DB.Begin()
+
 	userAgent := c.Request.UserAgent()
 	userIpAddress := c.ClientIP()
 
@@ -99,7 +101,7 @@ func Login(c *gin.Context) {
 	}
 
 	// Check if user exist
-	database.DB.Where("email = ?", user.Email).First(&existingUser)
+	tx.Where("email = ?", user.Email).First(&existingUser)
 	if existingUser.ID == 0 {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": map[string]any{
@@ -136,8 +138,9 @@ func Login(c *gin.Context) {
 	}
 
 	// Soft delete user login data if already expired or not active
-	deleteLoginData := database.DB.Delete(&models.UserLoginData{}, "user_id = ? AND expired_at < ? OR is_active = ?", existingUser.UserId, time.Now(), false)
+	deleteLoginData := tx.Delete(&models.UserLoginData{}, "user_id = ? AND expired_at < ? OR is_active = ?", existingUser.UserId, time.Now(), false)
 	if deleteLoginData.Error != nil {
+		tx.Rollback()
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": map[string]any{
 				"code":    http.StatusInternalServerError,
@@ -156,8 +159,9 @@ func Login(c *gin.Context) {
 		ExpiredAt:    authToken.RefreshTokenExp,
 		IsActive:     true,
 	}
-	saveLoginData := database.DB.Create(&userLoginData)
+	saveLoginData := tx.Create(&userLoginData)
 	if saveLoginData.Error != nil {
+		tx.Rollback()
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": map[string]any{
 				"code":    http.StatusInternalServerError,
@@ -190,6 +194,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	tx.Commit()
+
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": "Login success",
@@ -208,6 +214,7 @@ func RefreshAuthToken(c *gin.Context) {
 		loginData models.UserLoginData
 	)
 
+	tx := database.DB.Begin()
 	userAgent := c.Request.UserAgent()
 	userIpAddress := c.ClientIP()
 
@@ -251,7 +258,7 @@ func RefreshAuthToken(c *gin.Context) {
 	}
 
 	// Check refresh token in db
-	resultLoginData := database.DB.Where("user_id = ? AND refresh_token = ? AND is_active = ?", user.UserId, token.RefreshToken, true).First(&loginData)
+	resultLoginData := tx.Where("user_id = ? AND refresh_token = ? AND is_active = ?", user.UserId, token.RefreshToken, true).First(&loginData)
 	if resultLoginData.Error != nil {
 		// If not found then refresh token assumed compromised. Revoke all refresh token
 		database.DB.Model(&models.UserLoginData{}).Where("user_id = ?", user.UserId).Update("is_active", false)
@@ -277,7 +284,7 @@ func RefreshAuthToken(c *gin.Context) {
 	}
 
 	// Update last login data
-	resultUpdateLoginData := database.DB.Model(&models.UserLoginData{}).Where("id = ?", loginData.ID).Updates(map[string]interface{}{"is_active": false, "replaced_by": newToken.RefreshToken})
+	resultUpdateLoginData := tx.Model(&models.UserLoginData{}).Where("id = ?", loginData.ID).Updates(map[string]interface{}{"is_active": false, "replaced_by": newToken.RefreshToken})
 	if resultUpdateLoginData.Error != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": map[string]any{
@@ -297,8 +304,9 @@ func RefreshAuthToken(c *gin.Context) {
 		ExpiredAt:    newToken.RefreshTokenExp,
 		IsActive:     true,
 	}
-	saveLoginData := database.DB.Create(&userLoginData)
+	saveLoginData := tx.Create(&userLoginData)
 	if saveLoginData.Error != nil {
+		tx.Rollback()
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": map[string]any{
 				"code":    http.StatusInternalServerError,
@@ -307,6 +315,8 @@ func RefreshAuthToken(c *gin.Context) {
 		})
 		return
 	}
+
+	tx.Commit()
 
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
