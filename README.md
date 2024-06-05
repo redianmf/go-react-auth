@@ -19,11 +19,7 @@ Create postgres database, setup .env
 make run
 ```
 
-API Doc:
-
-```http
-[Swagger](http://localhost:8080/api/v1/swagger/index.html#)
-```
+More info: [Swagger API Documentation](https://localhost:8080/api/v1/swagger/index.html#)
 
 ### Client
 
