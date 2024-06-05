@@ -1,0 +1,180 @@
+basePath: /api/v1
+definitions:
+  models.AuthToken:
+    properties:
+      access_token:
+        type: string
+      access_token_exp:
+        type: string
+      refresh_token:
+        type: string
+      refresh_token_exp:
+        type: string
+    type: object
+  models.LoginPayload:
+    properties:
+      email:
+        example: redian@gmail.com
+        type: string
+      password:
+        example: "123123123"
+        type: string
+    type: object
+  models.RefreshTokenPayload:
+    properties:
+      refresh_token:
+        example: eyJiowrr98...
+        type: string
+    type: object
+  models.RegisterPayload:
+    properties:
+      email:
+        example: redian@gmail.com
+        type: string
+      name:
+        example: Redian
+        type: string
+      password:
+        example: "123123123"
+        type: string
+    type: object
+  models.UserApiResponse:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      user_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: redianmf@gmail.com
+    name: Redian Fikri
+  description: Backend service for Go React Auth https://github.com/redianmf/go-react-auth
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Go React Auth Backend
+  version: 0.1.0
+paths:
+  /auth/dummy:
+    get:
+      description: Dummy endpoint with protected route
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              message:
+                type: string
+            type: object
+      security:
+      - Bearer: []
+      summary: dummy endpoint
+      tags:
+      - Dummy
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              data:
+                properties:
+                  token:
+                    $ref: '#/definitions/models.AuthToken'
+                  user:
+                    $ref: '#/definitions/models.UserApiResponse'
+                type: object
+              message:
+                type: string
+            type: object
+      summary: login
+      tags:
+      - Auth
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Refresh auth token
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.RefreshTokenPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              data:
+                $ref: '#/definitions/models.AuthToken'
+              message:
+                type: string
+            type: object
+      security:
+      - Bearer: []
+      summary: refresh token
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register new user
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              data:
+                $ref: '#/definitions/models.UserApiResponse'
+              message:
+                type: string
+            type: object
+      summary: register
+      tags:
+      - Auth
+securityDefinitions:
+  Bearer:
+    description: 'Format: Bearer {token}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

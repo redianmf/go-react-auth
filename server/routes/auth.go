@@ -6,11 +6,9 @@ import (
 	"github.com/redianmf/go-react-auth/middlewares"
 )
 
-func AuthRoutes(route *gin.Engine) {
-	auth := route.Group("/auth")
-
-	auth.POST("/register", controllers.Register)
-	auth.POST("/login", controllers.Login)
-	auth.POST("/refresh-token", controllers.RefreshAuthToken)
-	auth.GET("/dummy", middlewares.ValidateAuth, controllers.DummyAPI)
+func AuthRoutes(route *gin.RouterGroup) {
+	route.POST("/register", controllers.Register)
+	route.POST("/login", controllers.Login)
+	route.POST("/refresh-token", controllers.RefreshAuthToken)
+	route.GET("/dummy", middlewares.ValidateAuth, controllers.DummyAPI)
 }

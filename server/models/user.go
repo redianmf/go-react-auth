@@ -18,6 +18,21 @@ func (u *User) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
+type LoginPayload struct {
+	Email    string `json:"email" example:"redian@gmail.com"`
+	Password string `json:"password" example:"123123123"`
+}
+
+type RegisterPayload struct {
+	Name     string `json:"name" example:"Redian"`
+	Email    string `json:"email" example:"redian@gmail.com"`
+	Password string `json:"password" example:"123123123"`
+}
+
+type RefreshTokenPayload struct {
+	RefreshToken string `json:"refresh_token" example:"eyJiowrr98..."`
+}
+
 type UserApiResponse struct {
 	UserId uuid.UUID `json:"user_id"`
 	Name   string    `json:"name"`

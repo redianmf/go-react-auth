@@ -13,6 +13,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// @Summary register
+// @Description Register new user
+// @Tags Auth
+// @Accept json
+// @Param payload body models.RegisterPayload true "payload"
+// @Produce json
+// @Success 200 {object} object{code=number,message=string,data=models.UserApiResponse}
+// @Router /auth/register [post]
 func Register(c *gin.Context) {
 	var (
 		user         models.User
@@ -65,13 +73,27 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	userApiResponse := models.UserApiResponse{
+		UserId: user.UserId,
+		Name:   user.Name,
+		Email:  user.Email,
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": "Success register user",
-		"data":    user,
+		"data":    userApiResponse,
 	})
 }
 
+// @Summary login
+// @Description Login user
+// @Tags Auth
+// @Accept json
+// @Param payload body models.LoginPayload true "payload"
+// @Produce json
+// @Success 200 {object} object{code=number,message=string,data=object{user=models.UserApiResponse,token=models.AuthToken}}
+// @Router /auth/login [post]
 func Login(c *gin.Context) {
 	var (
 		user            models.User
@@ -206,6 +228,15 @@ func Login(c *gin.Context) {
 	})
 }
 
+// @Summary refresh token
+// @Description Refresh auth token
+// @Tags Auth
+// @Accept json
+// @Param payload body models.RefreshTokenPayload true "payload"
+// @Produce json
+// @Success 200 {object} object{code=number,message=string,data=models.AuthToken}
+// @Router /auth/refresh-token [post]
+// @Security Bearer
 func RefreshAuthToken(c *gin.Context) {
 	var (
 		user      models.User
