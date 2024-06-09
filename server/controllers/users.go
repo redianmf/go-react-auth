@@ -23,8 +23,9 @@ import (
 // @Router /auth/register [post]
 func Register(c *gin.Context) {
 	var (
-		user         models.User
-		existingUser models.User
+		user             models.User
+		existingUser     models.User
+		validationErrors map[string]string
 	)
 
 	err := c.ShouldBindJSON(&user)
@@ -32,12 +33,13 @@ func Register(c *gin.Context) {
 		panic(err)
 	}
 
-	// Check empty payload
-	if user.Name == "" || user.Email == "" || user.Password == "" {
+	// Validate payload
+	validationErrors, err = user.Validate()
+	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": map[string]any{
 				"code":    http.StatusBadRequest,
-				"message": "Incomplete data",
+				"message": validationErrors,
 			},
 		})
 		return
