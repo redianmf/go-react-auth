@@ -1,12 +1,9 @@
-import "./App.css";
-import RingMarkings from "./assets/ring-markings.svg";
+// React
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/routes";
 
 function App() {
-  return (
-    <div className="logo react">
-      <RingMarkings />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
