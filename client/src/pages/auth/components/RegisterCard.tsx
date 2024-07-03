@@ -16,7 +16,12 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
         </h3>
         <InputText field="name" label="Your name" />
         <InputText field="email" label="Email" />
-        <InputText field="password" label="Password" />
+        <InputText field="password" label="Password" passwordHelper />
+        <InputText
+          field="confirmPassword"
+          label="Confirm Password"
+          passwordHelper
+        />
         <button className="w-full my-5 bg-slate-700 hover:bg-gold transition-all duration-700 text-xl font-bold font-body text-white p-3 rounded">
           Submit
         </button>
