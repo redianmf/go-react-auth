@@ -2,8 +2,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // Pages
+import Auth from "../pages/auth/Auth";
 import Home from "../pages/home/Home";
-import Login from "../pages/login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -11,8 +11,8 @@ export const router = createBrowserRouter([
     path: "/",
     children: [
       {
-        path: "login",
-        Component: Login,
+        path: "auth",
+        Component: Auth,
       },
       {
         index: true,
