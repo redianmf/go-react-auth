@@ -1,4 +1,9 @@
-import { SyntheticEvent, useState } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  SyntheticEvent,
+  useState,
+} from "react";
 
 import { InputHTMLAttributes } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
@@ -6,16 +11,16 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 interface IInputText extends InputHTMLAttributes<HTMLInputElement> {
   field: string;
   label: string;
+  errorText?: string;
   passwordHelper?: boolean;
 }
 
-const InputText: React.FC<IInputText> = ({
-  field,
-  label,
-  passwordHelper = false,
-  ...rest
-}) => {
+const InputTextWithRef: ForwardRefRenderFunction<
+  HTMLInputElement,
+  IInputText
+> = ({ field, label, errorText, passwordHelper = false, ...rest }, ref) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const passwordHelperState = showPassword ? "text" : "password";
 
   const togglePassword = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -30,9 +35,10 @@ const InputText: React.FC<IInputText> = ({
       <div className="relative">
         <input
           {...rest}
+          ref={ref}
           className="text-xl font-sans px-3 py-2 rounded-lg focus:outline-none w-full"
           id={field}
-          type={showPassword ? "text" : "password"}
+          type={passwordHelper ? passwordHelperState : "text"}
         />
         {passwordHelper && (
           <button
@@ -43,8 +49,11 @@ const InputText: React.FC<IInputText> = ({
           </button>
         )}
       </div>
+      {errorText && <p className="text-red-700 font-semibold">{errorText}</p>}
     </div>
   );
 };
+
+const InputText = forwardRef(InputTextWithRef);
 
 export default InputText;
