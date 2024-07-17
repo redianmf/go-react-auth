@@ -1,0 +1,14 @@
+# Blender 3.3.1 MTL File: 'The One Ring.blend'
+# www.blender.org
+
+newmtl Ring
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures/Ring_D.jpg
+map_Ns textures/Ring_R.jpg
+map_refl textures/Ring_M.jpg
+map_Ke textures/Ring_2E.jpg
+map_Bump -bm 1.000000 textures/Ring_N.jpg

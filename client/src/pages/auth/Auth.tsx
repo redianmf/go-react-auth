@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import LoginCard from "./components/LoginCard";
 import RegisterCard from "./components/RegisterCard";
+import RingScene from "./components/RingScene";
 
 import { CardState } from "../../types/enums";
 
@@ -15,8 +16,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-gray-900 grid grid-cols-2 gap-3">
-      <section className="hidden md:block"></section>
+    <div className="h-screen overflow-hidden bg-gray-900 grid grid-cols-2 gap-3 ">
+      <section className="hidden md:block">
+        <RingScene />
+      </section>
       <section className="h-full flex justify-center items-center">
         {activeCard === CardState.Register && (
           <RegisterCard handleToggleCard={handleToggleCard} />
