@@ -6,8 +6,18 @@ import {
   OrbitControls,
 } from "three/examples/jsm/Addons.js";
 
-const RingScene = () => {
+interface IRingScene {
+  setLoadingPercentage: (value: number) => void;
+}
+
+const RingScene: React.FC<IRingScene> = ({ setLoadingPercentage }) => {
   const refContainer = useRef<HTMLDivElement>(null);
+  const loadManager = new THREE.LoadingManager();
+
+  loadManager.onProgress = (_, loaded, total) => {
+    const loadPercentage: number = (loaded / total) * 100;
+    setLoadingPercentage(parseFloat(loadPercentage.toFixed(0)));
+  };
 
   const initCamera = () => {
     const camera = new THREE.PerspectiveCamera(
@@ -60,7 +70,9 @@ const RingScene = () => {
     const path = "./environment/";
     const urls = ["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"];
 
-    const texture = new THREE.CubeTextureLoader().setPath(path).load(urls);
+    const texture = new THREE.CubeTextureLoader(loadManager)
+      .setPath(path)
+      .load(urls);
     return texture;
   };
 
@@ -68,7 +80,7 @@ const RingScene = () => {
     const geometry = new THREE.SphereGeometry(500, 60, 40);
     geometry.scale(-1, 1, 1);
 
-    const texture = new THREE.TextureLoader().load("./lake.jpg");
+    const texture = new THREE.TextureLoader(loadManager).load("./lake.jpg");
     texture.colorSpace = THREE.SRGBColorSpace;
     const material = new THREE.MeshBasicMaterial({ map: texture });
 
@@ -77,12 +89,12 @@ const RingScene = () => {
   };
 
   const loadRingModel = (scene: THREE.Scene, texture: THREE.CubeTexture) => {
-    const mtlLoader = new MTLLoader();
+    const mtlLoader = new MTLLoader(loadManager);
     mtlLoader.load(
       "./the-one-ring.mtl",
       (materials) => {
         materials.preload();
-        const loader = new OBJLoader();
+        const loader = new OBJLoader(loadManager);
         loader.setMaterials(materials);
 
         loader.load(
@@ -102,17 +114,13 @@ const RingScene = () => {
 
             scene.add(object);
           },
-          function (xhr) {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-          },
+          undefined,
           function (error) {
             console.log("An error happened", error);
           }
         );
       },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
+      undefined,
       (error) => {
         console.log("An error happened", error);
       }
