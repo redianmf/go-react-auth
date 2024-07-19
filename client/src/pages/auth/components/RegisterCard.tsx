@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 
+import Button from "../../../components/Button";
 import InputText from "../../../components/InputText";
 
 import { RegisterSchema } from "../../../schemas/userSchema";
@@ -74,13 +75,9 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           errorText={errors?.confirmPassword?.message}
           {...register("confirmPassword")}
         />
-        <button
-          type="submit"
-          className="w-full my-5 bg-slate-700 disabled:bg-slate-300 hover:bg-gold disabled:hover:bg-slate-300 transition-all duration-700 text-xl font-bold font-body text-white p-3 rounded"
-          disabled={isFormError || isAnyFieldEmpty}
-        >
+        <Button type="submit" disabled={isFormError || isAnyFieldEmpty}>
           Submit
-        </button>
+        </Button>
         <p className="text-center text-white">
           Already have an account?{" "}
           <span onClick={handleToggleCard} className="font-bold cursor-pointer">
