@@ -54,13 +54,6 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
         <Button type="submit" disabled={isFormError || isAnyFieldEmpty}>
           Submit
         </Button>
-        {/* <button
-          type="submit"
-          className="w-full my-5 bg-slate-700 disabled:bg-slate-300 hover:bg-gold disabled:hover:bg-slate-300 transition-all duration-700 text-xl font-bold font-body text-white p-3 rounded"
-          disabled={isFormError || isAnyFieldEmpty}
-        >
-          Submit
-        </button> */}
       </form>
       <p className="text-center text-white">
         Don't have an account?{" "}
