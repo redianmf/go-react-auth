@@ -5,7 +5,6 @@ export const handleError = (err: unknown) => {
   if (!axios.isAxiosError(err)) return err;
 
   const { response } = err;
-  console.log(response, "res");
 
   if (response && response.status) {
     const message = response.data && response?.data?.error?.message;
