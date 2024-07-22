@@ -10,10 +10,6 @@ const useLogout = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  //   const accessToken = localStorage.accessToken;
-  //   const refreshToken = localStorage.refreshToken;
-  //   const isAuth = accessToken && refreshToken;
-
   const handleLogout = async () => {
     try {
       setErrorMsg("");
