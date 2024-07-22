@@ -1,5 +1,5 @@
 import { HTMLMotionProps, motion } from "framer-motion";
-import { LuAlertTriangle } from "react-icons/lu";
+import { LuAlertTriangle, LuCheckCircle, LuInfo } from "react-icons/lu";
 
 import { AlertType } from "../types/types";
 
@@ -21,6 +21,27 @@ const getAlertTypeClass = (alertType: AlertType | undefined) => {
   }
 };
 
+const getAlertIcon = (alertType: AlertType | undefined) => {
+  let Icon;
+
+  switch (alertType) {
+    case AlertType.ERROR:
+      Icon = LuAlertTriangle;
+      break;
+    case AlertType.WARNING:
+      Icon = LuAlertTriangle;
+      break;
+    case AlertType.SUCCESS:
+      Icon = LuCheckCircle;
+      break;
+    default:
+      Icon = LuInfo;
+      break;
+  }
+
+  return <Icon className="mr-2 text-xl" />;
+};
+
 const Alert = ({ message, type, ...rest }: IAlert) => {
   return (
     <motion.div
@@ -30,7 +51,7 @@ const Alert = ({ message, type, ...rest }: IAlert) => {
       animate={{ opacity: 100 }}
       className={`p-3 w-full rounded text-white font-bold flex items-center ${getAlertTypeClass(type)}`}
     >
-      <LuAlertTriangle className="mr-2 text-xl" />
+      {getAlertIcon(type)}
       <p>{message}</p>
     </motion.div>
   );
