@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/redianmf/go-react-auth/database"
 	"github.com/redianmf/go-react-auth/initializers"
+	"github.com/redianmf/go-react-auth/middlewares"
 	"github.com/redianmf/go-react-auth/routes"
 )
 
@@ -35,7 +35,7 @@ func init() {
 // @description Format: Bearer {token}
 func main() {
 	router := gin.Default()
-	router.Use(cors.Default())
+	router.Use(middlewares.CorsConfig)
 
 	v1 := router.Group("/api/v1")
 	{
