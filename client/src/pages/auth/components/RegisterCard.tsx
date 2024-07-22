@@ -1,19 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import useRegister from "../../../hooks/auth/useRegister";
 
+import Alert from "../../../components/Alert";
 import Button from "../../../components/Button";
 import InputText from "../../../components/InputText";
 
 import { RegisterSchema } from "../../../schemas/userSchema";
 import { IAuthCard } from "../../../types/interfaces";
-import { RegisterProps } from "../../../types/types";
+import { AlertType, RegisterProps } from "../../../types/types";
 
 const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
+  const { handleRegister, isLoading, errorMsg, successMsg } = useRegister();
+
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<RegisterProps>({
     resolver: zodResolver(RegisterSchema),
@@ -30,9 +36,13 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
     !watch("password") ||
     !watch("confirmPassword");
 
-  const onSubmit = (data: RegisterProps) => {
-    console.log({ errors, data }, "err");
+  const onSubmit = async (data: RegisterProps) => {
+    await handleRegister(data);
   };
+
+  useEffect(() => {
+    if (successMsg) reset();
+  }, [successMsg]);
 
   return (
     <motion.div
@@ -75,10 +85,16 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           errorText={errors?.confirmPassword?.message}
           {...register("confirmPassword")}
         />
-        <Button type="submit" disabled={isFormError || isAnyFieldEmpty}>
+        <Button
+          type="submit"
+          disabled={isFormError || isAnyFieldEmpty}
+          isLoading={isLoading}
+        >
           Submit
         </Button>
-        <p className="text-center text-white">
+        {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
+        {successMsg && <Alert type={AlertType.SUCCESS} message={successMsg} />}
+        <p className="text-center text-white mt-2">
           Already have an account?{" "}
           <span onClick={handleToggleCard} className="font-bold cursor-pointer">
             Login
