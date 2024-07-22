@@ -230,6 +230,65 @@ func Login(c *gin.Context) {
 	})
 }
 
+// @Summary logout
+// @Description Logout
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} object{code=number,message=string}
+// @Router /auth/logout [post]
+// @Security Bearer
+func Logout(c *gin.Context) {
+	var (
+		token models.AuthToken
+		user  models.User
+	)
+
+	tx := database.DB.Begin()
+
+	// Get JWT from header
+	tokenString, err := middlewares.GetJWT(c.GetHeader("Authorization"))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"error": "token not found",
+		})
+		return
+	}
+	token.AccessToken = tokenString
+
+	// Validate refresh token
+	jwtService := services.Jwt{}
+	user, err = jwtService.ValidateAccessToken(token.AccessToken)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusUnauthorized,
+				"message": err.Error(),
+			},
+		})
+		return
+	}
+
+	// Update last login data
+	resultUpdateLoginData := tx.Model(&models.UserLoginData{}).Where("user_id = ?", user.UserId).Updates(map[string]interface{}{"is_active": false})
+	if resultUpdateLoginData.Error != nil {
+		tx.Rollback()
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": map[string]any{
+				"code":    http.StatusInternalServerError,
+				"message": resultUpdateLoginData.Error,
+			},
+		})
+		return
+	}
+
+	tx.Commit()
+
+	c.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": "Logout success",
+	})
+}
+
 // @Summary refresh token
 // @Description Refresh auth token
 // @Tags Auth

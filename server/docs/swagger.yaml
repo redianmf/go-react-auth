@@ -111,6 +111,26 @@ paths:
       summary: login
       tags:
       - Auth
+  /auth/logout:
+    post:
+      description: Logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              message:
+                type: string
+            type: object
+      security:
+      - Bearer: []
+      summary: logout
+      tags:
+      - Auth
   /auth/refresh-token:
     post:
       consumes:

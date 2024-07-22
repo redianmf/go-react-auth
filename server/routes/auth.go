@@ -9,6 +9,7 @@ import (
 func AuthRoutes(route *gin.RouterGroup) {
 	route.POST("/register", controllers.Register)
 	route.POST("/login", controllers.Login)
+	route.POST("/logout", controllers.Logout)
 	route.POST("/refresh-token", controllers.RefreshAuthToken)
 	route.GET("/dummy", middlewares.ValidateAuth, controllers.DummyAPI)
 }
