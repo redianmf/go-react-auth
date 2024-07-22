@@ -22,3 +22,10 @@ export const Disabled: IButton = {
     disabled: true,
   },
 };
+
+export const Loading: IButton = {
+  args: {
+    children: "Submit",
+    isLoading: true,
+  },
+};
