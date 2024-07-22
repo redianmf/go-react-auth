@@ -23,3 +23,16 @@
   backdrop-filter: blur(6.9px);
   -webkit-backdrop-filter: blur(6.9px);
 }
+
+.spinner {
+  animation: animate 2s infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
