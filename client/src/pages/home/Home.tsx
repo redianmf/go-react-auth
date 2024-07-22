@@ -1,14 +1,21 @@
-// Lib
 import { motion } from "framer-motion";
+import useLogout from "../../hooks/auth/useLogout";
 
-// Assets
+import Button from "../../components/Button";
+
 import RingMarkings from "../../assets/images/ring-markings.svg";
 
 const Home = () => {
+  const { handleLogout, isLoading } = useLogout();
   const user = JSON.parse(localStorage.user) || {};
 
   return (
     <div className="h-screen max-h-screen overflow-hidden bg-gray-900 flex justify-center items-center relative">
+      <div className="absolute top-0 right-3 z-30">
+        <Button onClick={handleLogout} isLoading={isLoading}>
+          I wanna back home
+        </Button>
+      </div>
       <motion.div
         className="markings w-full h-full"
         animate={{ rotate: 360 }}
