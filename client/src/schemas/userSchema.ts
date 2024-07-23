@@ -30,6 +30,12 @@ export const RegisterSchema = z
     password: passwordValidation,
     confirmPassword: z.string(),
   })
-  .refine((schema) => schema.password === schema.confirmPassword, {
-    message: "Password didn't match",
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Password did not match",
+        path: ["confirmPassword"],
+      });
+    }
   });

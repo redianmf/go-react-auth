@@ -49,7 +49,11 @@ const InputTextWithRef: ForwardRefRenderFunction<
           </button>
         )}
       </div>
-      {errorText && <p className="text-red-700 font-semibold">{errorText}</p>}
+      {errorText && (
+        <p data-testid="input-error" className="text-red-700 font-semibold">
+          {errorText}
+        </p>
+      )}
     </div>
   );
 };

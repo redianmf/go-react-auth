@@ -41,6 +41,7 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputText
+          data-testid="email"
           field="email"
           label="Email"
           autoComplete="email"
@@ -48,6 +49,7 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("email")}
         />
         <InputText
+          data-testid="password"
           field="password"
           label="Password"
           autoComplete="current-password"
@@ -56,6 +58,7 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("password")}
         />
         <Button
+          data-testid="submit-login"
           type="submit"
           disabled={isFormError || isAnyFieldEmpty}
           isLoading={isLoading}
@@ -66,7 +69,11 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
       {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
       <p className="text-center text-white mt-2">
         Don't have an account?{" "}
-        <span onClick={handleToggleCard} className="font-bold cursor-pointer">
+        <span
+          onClick={handleToggleCard}
+          data-testid="switch-to-register"
+          className="font-bold cursor-pointer"
+        >
           Register
         </span>
       </p>

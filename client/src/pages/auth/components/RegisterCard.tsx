@@ -26,7 +26,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
     mode: "all",
   });
 
-  const isFormError: boolean = Boolean(errors?.name?.message);
+  const isFormError: boolean = Boolean(Object.keys(errors).length !== 0);
   Boolean(errors?.email?.message) ||
     Boolean(errors?.password?.message) ||
     Boolean(errors?.confirmPassword?.message);
@@ -56,6 +56,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           Register
         </h3>
         <InputText
+          data-testid="name"
           field="name"
           label="Your name"
           autoComplete="name"
@@ -63,6 +64,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("name")}
         />
         <InputText
+          data-testid="email"
           field="email"
           label="Email"
           autoComplete="email"
@@ -70,6 +72,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("email")}
         />
         <InputText
+          data-testid="password"
           field="password"
           label="Password"
           passwordHelper
@@ -78,6 +81,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("password")}
         />
         <InputText
+          data-testid="confirm-password"
           field="confirmPassword"
           label="Confirm Password"
           passwordHelper
@@ -86,6 +90,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           {...register("confirmPassword")}
         />
         <Button
+          data-testid="submit-register"
           type="submit"
           disabled={isFormError || isAnyFieldEmpty}
           isLoading={isLoading}
@@ -93,10 +98,20 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           Submit
         </Button>
         {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
-        {successMsg && <Alert type={AlertType.SUCCESS} message={successMsg} />}
+        {successMsg && (
+          <Alert
+            data-testid="success-register"
+            type={AlertType.SUCCESS}
+            message={successMsg}
+          />
+        )}
         <p className="text-center text-white mt-2">
           Already have an account?{" "}
-          <span onClick={handleToggleCard} className="font-bold cursor-pointer">
+          <span
+            data-testid="switch-to-login"
+            onClick={handleToggleCard}
+            className="font-bold cursor-pointer"
+          >
             Login
           </span>
         </p>

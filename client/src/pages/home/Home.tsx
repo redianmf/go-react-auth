@@ -12,7 +12,11 @@ const Home = () => {
   return (
     <div className="h-screen max-h-screen overflow-hidden bg-gray-900 flex justify-center items-center relative">
       <div className="absolute top-0 right-3 z-30">
-        <Button onClick={handleLogout} isLoading={isLoading}>
+        <Button
+          data-testid="btn-logout"
+          onClick={handleLogout}
+          isLoading={isLoading}
+        >
           I wanna back home
         </Button>
       </div>
@@ -27,7 +31,10 @@ const Home = () => {
         <h1 className="font-body text-gold text-2xl text-center">
           Welcome to middle earth,
         </h1>
-        <h5 className="font-body text-gold text-4xl text-center">
+        <h5
+          data-testid="username"
+          className="font-body text-gold text-4xl text-center"
+        >
           {user?.name}
         </h5>
       </div>
