@@ -14,6 +14,7 @@
     "cy:run-e2e": "cypress run --e2e",
     "cy:run-unit": "cypress run --component",
     "cy:e2e": "start-server-and-test dev http://localhost:5173 cy:open-e2e",
+    "cy:unit": "start-server-and-test dev http://localhost:5173 cy:open-unit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -32,6 +33,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
+    "@cypress/code-coverage": "^3.12.44",
+    "@cypress/react18": "^2.0.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@storybook/addon-essentials": "^8.2.4",
     "@storybook/addon-interactions": "^8.2.4",
     "@storybook/addon-links": "^8.2.4",
@@ -40,7 +44,7 @@
     "@storybook/react": "^8.2.4",
     "@storybook/react-vite": "^8.2.4",
     "@storybook/test": "^8.2.4",
-    "@types/node": "^20.14.1",
+    "@types/node": "^20.14.11",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/testing-library__cypress": "^5.0.13",
@@ -60,6 +64,7 @@
     "storybook": "^8.2.4",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vite-plugin-istanbul": "^6.0.2"
   }
 }
