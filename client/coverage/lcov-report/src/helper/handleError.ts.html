@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/10</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -90,49 +90,49 @@
 <a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
 import { httpErrorMessage } from "./httpErrorMessage";
 &nbsp;
-export const handleError = <span class="fstat-no" title="function not covered" >(e</span>rr: unknown) =&gt; {
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!axios.isAxiosError(err)) <span class="cstat-no" title="statement not covered" >return err;</span></span>
+export const handleError = (err: unknown) =&gt; {
+  if (!axios.isAxiosError(err)) return err;
 &nbsp;
-  const { response } = <span class="cstat-no" title="statement not covered" >err;</span>
+  const { response } = err;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (response &amp;&amp; response.status) {</span>
-    const message = <span class="cstat-no" title="statement not covered" >response.data &amp;&amp; response?.data?.error?.message;</span>
+  if (response &amp;&amp; response.status) {
+    const message = response.data &amp;&amp; response?.data?.error?.message;
 &nbsp;
-    const isClientError = <span class="cstat-no" title="statement not covered" >Boolean(</span>
+    const isClientError = Boolean(
       response?.status?.toString()?.startsWith("4")
     );
 &nbsp;
-    const errorText = <span class="cstat-no" title="statement not covered" >isClientError</span>
+    const errorText = isClientError
       ? message
       : httpErrorMessage[response.status];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return errorText;</span>
+    return errorText;
   } else {
-<span class="cstat-no" title="statement not covered" >    return "Cannot connect to the server, Check your internet network";</span>
+    return "Cannot connect to the server, Check your internet network";
   }
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -142,7 +142,7 @@ export const handleError = <span class="fstat-no" title="function not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/8</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -146,13 +146,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,7 +179,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
@@ -209,13 +209,13 @@ interface IInputText extends InputHTMLAttributes&lt;HTMLInputElement&gt; {
 const InputTextWithRef: ForwardRefRenderFunction&lt;
   HTMLInputElement,
   IInputText
-&gt; = <span class="fstat-no" title="function not covered" >({</span> field, label, errorText, passwordHelper = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> ...rest }, ref) =&gt; {
-  const [showPassword, setShowPassword] = <span class="cstat-no" title="statement not covered" >useState&lt;boolean&gt;(false);</span>
-  const passwordHelperState = <span class="cstat-no" title="statement not covered" >showPassword ? "text" : "password";</span>
+&gt; = ({ field, label, errorText, passwordHelper = false, ...rest }, ref) =&gt; {
+  const [showPassword, setShowPassword] = useState&lt;boolean&gt;(false);
+  const passwordHelperState = showPassword ? "text" : "password";
 &nbsp;
-  const togglePassword = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>: SyntheticEvent) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >    setShowPassword(<span class="fstat-no" title="function not covered" >(c</span>urrent) =&gt; <span class="cstat-no" title="statement not covered" >!current);</span></span>
+  const togglePassword = (e: SyntheticEvent) =&gt; {
+    e.preventDefault();
+    setShowPassword((current) =&gt; !current);
   };
 &nbsp;
   return (
@@ -231,16 +231,16 @@ const InputTextWithRef: ForwardRefRenderFunction&lt;
           id={field}
           type={passwordHelper ? passwordHelperState : "text"}
         /&gt;
-        {<span class="branch-0 cbranch-no" title="branch not covered" >passwordHelper &amp;&amp; (</span>
+        {passwordHelper &amp;&amp; (
           &lt;button
             onClick={togglePassword}
             className="absolute inset-y-0 end-0 flex items-center pe-3 text-2xl text-slate-700 hover:text-slate-400"
           &gt;
-            {showPassword ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;IoMdEye /&gt; : &lt;I</span>oMdEyeOff /&gt;}
+            {showPassword ? &lt;IoMdEye /&gt; : &lt;IoMdEyeOff /&gt;}
           &lt;/button&gt;
         )}
       &lt;/div&gt;
-      {<span class="branch-0 cbranch-no" title="branch not covered" >errorText &amp;&amp; (</span>
+      {errorText &amp;&amp; (
         &lt;p data-testid="input-error" className="text-red-700 font-semibold"&gt;
           {errorText}
         &lt;/p&gt;
@@ -259,7 +259,7 @@ export default InputText;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,14 +23,14 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/15</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/0</span>
             </div>
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/15</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -105,31 +105,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,31 +140,31 @@ import { API } from "../../config/api";
 import { LOGOUT_URL } from "../../config/endpoints";
 import { handleError } from "../../helper/handleError";
 &nbsp;
-const useLogout = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const [isLoading, setIsLoading] = <span class="cstat-no" title="statement not covered" >useState&lt;boolean&gt;(false);</span>
-  const [errorMsg, setErrorMsg] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;("");</span>
+const useLogout = () =&gt; {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(false);
+  const [errorMsg, setErrorMsg] = useState&lt;string&gt;("");
 &nbsp;
-  const handleLogout = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      setErrorMsg("");</span>
-<span class="cstat-no" title="statement not covered" >      setIsLoading(true);</span>
-<span class="cstat-no" title="statement not covered" >      await API.post(LOGOUT_URL);</span>
+  const handleLogout = async () =&gt; {
+    try {
+      setErrorMsg("");
+      setIsLoading(true);
+      await API.post(LOGOUT_URL);
 &nbsp;
       // Clear data
-<span class="cstat-no" title="statement not covered" >      localStorage.clear();</span>
+      localStorage.clear();
 &nbsp;
       // Redirect homepage
-<span class="cstat-no" title="statement not covered" >      navigate("/auth");</span>
+      navigate("/auth");
     } catch (error) {
-      const errMsg = <span class="cstat-no" title="statement not covered" >handleError(error);</span>
-<span class="cstat-no" title="statement not covered" >      setErrorMsg(handleError(errMsg));</span>
+      const errMsg = handleError(error);
+      setErrorMsg(handleError(errMsg));
     } finally {
-<span class="cstat-no" title="statement not covered" >      setIsLoading(false);</span>
+      setIsLoading(false);
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { handleLogout, isLoading, errorMsg };</span>
+  return { handleLogout, isLoading, errorMsg };
 };
 &nbsp;
 export default useLogout;
@@ -175,7 +175,7 @@ export default useLogout;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

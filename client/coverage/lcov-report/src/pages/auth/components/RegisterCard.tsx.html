@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/10</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -200,8 +200,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,27 +207,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -323,8 +323,8 @@ import { RegisterSchema } from "../../../schemas/userSchema";
 import { IAuthCard } from "../../../types/interfaces";
 import { AlertType, RegisterProps } from "../../../types/types";
 &nbsp;
-const RegisterCard = <span class="fstat-no" title="function not covered" >({</span> handleToggleCard }: IAuthCard) =&gt; {
-  const { handleRegister, isLoading, errorMsg, successMsg } = <span class="cstat-no" title="statement not covered" >useRegister();</span>
+const RegisterCard = ({ handleToggleCard }: IAuthCard) =&gt; {
+  const { handleRegister, isLoading, errorMsg, successMsg } = useRegister();
 &nbsp;
   const {
     register,
@@ -332,27 +332,27 @@ const RegisterCard = <span class="fstat-no" title="function not covered" >({</sp
     watch,
     reset,
     formState: { errors },
-  } = <span class="cstat-no" title="statement not covered" >useForm&lt;RegisterProps&gt;({</span>
+  } = useForm&lt;RegisterProps&gt;({
     resolver: zodResolver(RegisterSchema),
     mode: "all",
   });
 &nbsp;
-  const isFormError: boolean = <span class="cstat-no" title="statement not covered" >Boolean(Object.keys(errors).length !== 0);</span>
-<span class="cstat-no" title="statement not covered" >  Boolean(errors?.email?.message) ||</span>
+  const isFormError: boolean = Boolean(Object.keys(errors).length !== 0);
+  Boolean(errors?.email?.message) ||
     Boolean(errors?.password?.message) ||
     Boolean(errors?.confirmPassword?.message);
   const isAnyFieldEmpty: boolean =
-<span class="cstat-no" title="statement not covered" >    !watch("name") ||</span>
+    !watch("name") ||
     !watch("email") ||
     !watch("password") ||
     !watch("confirmPassword");
 &nbsp;
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async (d</span>ata: RegisterProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    await handleRegister(data);</span>
+  const onSubmit = async (data: RegisterProps) =&gt; {
+    await handleRegister(data);
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (successMsg) <span class="cstat-no" title="statement not covered" >reset();</span></span>
+  useEffect(() =&gt; {
+    if (successMsg) reset();
   }, [successMsg]);
 &nbsp;
   return (
@@ -408,8 +408,8 @@ const RegisterCard = <span class="fstat-no" title="function not covered" >({</sp
         &gt;
           Submit
         &lt;/Button&gt;
-        {<span class="branch-0 cbranch-no" title="branch not covered" >errorMsg &amp;&amp; &lt;</span>Alert type={AlertType.ERROR} message={errorMsg} /&gt;}
-        {<span class="branch-0 cbranch-no" title="branch not covered" >successMsg &amp;&amp; (</span>
+        {errorMsg &amp;&amp; &lt;Alert type={AlertType.ERROR} message={errorMsg} /&gt;}
+        {successMsg &amp;&amp; (
           &lt;Alert
             data-testid="success-register"
             type={AlertType.SUCCESS}
@@ -439,7 +439,7 @@ export default RegisterCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

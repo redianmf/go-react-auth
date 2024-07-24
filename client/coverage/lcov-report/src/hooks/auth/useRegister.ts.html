@@ -23,14 +23,14 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/0</span>
             </div>
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -100,26 +100,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,26 +130,26 @@ import { REGISTER_URL } from "../../config/endpoints";
 import { handleError } from "../../helper/handleError";
 import { RegisterProps } from "../../types/types";
 &nbsp;
-const useRegister = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-  const [isLoading, setIsLoading] = <span class="cstat-no" title="statement not covered" >useState&lt;boolean&gt;(false);</span>
-  const [errorMsg, setErrorMsg] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;("");</span>
-  const [successMsg, setSuccessMsg] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;("");</span>
+const useRegister = () =&gt; {
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(false);
+  const [errorMsg, setErrorMsg] = useState&lt;string&gt;("");
+  const [successMsg, setSuccessMsg] = useState&lt;string&gt;("");
 &nbsp;
-  const handleRegister = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async (p</span>ayload: RegisterProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      setErrorMsg("");</span>
-<span class="cstat-no" title="statement not covered" >      setIsLoading(true);</span>
-      const res = <span class="cstat-no" title="statement not covered" >await API.post(REGISTER_URL, payload);</span>
-<span class="cstat-no" title="statement not covered" >      setSuccessMsg(res?.data?.message);</span>
+  const handleRegister = async (payload: RegisterProps) =&gt; {
+    try {
+      setErrorMsg("");
+      setIsLoading(true);
+      const res = await API.post(REGISTER_URL, payload);
+      setSuccessMsg(res?.data?.message);
     } catch (error) {
-      const errMsg = <span class="cstat-no" title="statement not covered" >handleError(error);</span>
-<span class="cstat-no" title="statement not covered" >      setErrorMsg(handleError(errMsg));</span>
+      const errMsg = handleError(error);
+      setErrorMsg(handleError(errMsg));
     } finally {
-<span class="cstat-no" title="statement not covered" >      setIsLoading(false);</span>
+      setIsLoading(false);
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { handleRegister, isLoading, errorMsg, successMsg };</span>
+  return { handleRegister, isLoading, errorMsg, successMsg };
 };
 &nbsp;
 export default useRegister;
@@ -160,7 +160,7 @@ export default useRegister;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

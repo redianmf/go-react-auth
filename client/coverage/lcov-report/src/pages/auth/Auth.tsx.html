@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -118,13 +118,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,19 +165,19 @@ import RingScene from "./components/RingScene";
 &nbsp;
 import { CardState } from "../../types/enums";
 &nbsp;
-const Auth = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-  const [activeCard, setActiveCard] = <span class="cstat-no" title="statement not covered" >useState(CardState.Login);</span>
-  const [loadingPercentage, setLoadingPercentage] = <span class="cstat-no" title="statement not covered" >useState&lt;number&gt;(0);</span>
+const Auth = () =&gt; {
+  const [activeCard, setActiveCard] = useState(CardState.Login);
+  const [loadingPercentage, setLoadingPercentage] = useState&lt;number&gt;(0);
 &nbsp;
-  const handleToggleCard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    setActiveCard(<span class="fstat-no" title="function not covered" >(c</span>urrent) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >      current === CardState.Login ? CardState.Register : CardState.Login</span>
+  const handleToggleCard = () =&gt; {
+    setActiveCard((current) =&gt;
+      current === CardState.Login ? CardState.Register : CardState.Login
     );
   };
 &nbsp;
   return (
     &lt;&gt;
-      {<span class="branch-0 cbranch-no" title="branch not covered" >loadingPercentage &lt; 100 &amp;&amp; (</span>
+      {loadingPercentage &lt; 100 &amp;&amp; (
         &lt;section className="h-screen w-screen overflow-hidden bg-gray-900 flex justify-center items-center absolute top-0 left-0 z-30"&gt;
           &lt;div className="border border-gold rounded-full px-32 py-5"&gt;
             &lt;p className="font-body text-gold text-3xl"&gt;
@@ -191,10 +191,10 @@ const Auth = <span class="fstat-no" title="function not covered" >() =&gt; {</sp
           &lt;RingScene setLoadingPercentage={setLoadingPercentage} /&gt;
         &lt;/section&gt;
         &lt;section className="h-full flex justify-center items-center"&gt;
-          {<span class="branch-0 cbranch-no" title="branch not covered" >activeCard === CardState.Register </span>&amp;&amp; (
+          {activeCard === CardState.Register &amp;&amp; (
             &lt;RegisterCard handleToggleCard={handleToggleCard} /&gt;
           )}
-          {<span class="branch-0 cbranch-no" title="branch not covered" >activeCard === CardState.Login </span>&amp;&amp; (
+          {activeCard === CardState.Login &amp;&amp; (
             &lt;LoginCard handleToggleCard={handleToggleCard} /&gt;
           )}
         &lt;/section&gt;
@@ -211,7 +211,7 @@ export default Auth;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-24T01:13:17.099Z
+                at 2024-07-24T01:54:47.572Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

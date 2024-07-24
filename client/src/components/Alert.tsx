@@ -49,6 +49,7 @@ const Alert = ({ message, type, ...rest }: IAlert) => {
       initial={{ opacity: 0 }}
       transition={{ duration: 1 }}
       animate={{ opacity: 100 }}
+      data-testid="component-alert"
       className={`p-3 w-full rounded text-white font-bold flex items-center ${getAlertTypeClass(type)}`}
     >
       {getAlertIcon(type)}
