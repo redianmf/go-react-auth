@@ -16,6 +16,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
       <button
         ref={ref}
         disabled={isInactive}
+        data-testid="component-button"
         className={`w-full my-5 transition-all duration-700 text-xl font-bold font-body  text-white p-3 rounded  ${isInactive ? "bg-slate-300 hover:bg-slate-300 cursor-not-allowed" : "bg-slate-700 hover:bg-gold"} ${classes}`}
         {...props}
       >
