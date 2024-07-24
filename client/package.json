@@ -21,10 +21,13 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "axios": "^1.7.2",
+    "flag-icons": "^7.2.3",
     "framer-motion": "^11.2.11",
+    "i18next": "^23.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.1",
+    "react-i18next": "^15.0.0",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.23.1",
     "three": "^0.166.1",
