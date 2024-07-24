@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import useRegister from "../../../hooks/auth/useRegister";
 
 import Alert from "../../../components/Alert";
@@ -13,6 +14,7 @@ import { IAuthCard } from "../../../types/interfaces";
 import { AlertType, RegisterProps } from "../../../types/types";
 
 const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
+  const { t } = useTranslation();
   const { handleRegister, isLoading, errorMsg, successMsg } = useRegister();
 
   const {
@@ -46,19 +48,19 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
 
   return (
     <motion.div
-      className="w-4/6 px-11 py-7 glass-bg"
+      className="w-4/6 px-11 py-7 glass-bg max-h-[calc(100vh-50px)] overflow-y-auto"
       initial={{ opacity: 0 }}
       transition={{ duration: 1 }}
       animate={{ opacity: 100 }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-3xl text-gold text-center font-bold font-body my-3">
-          Register
+          {t("auth.register")}
         </h3>
         <InputText
           data-testid="name"
           field="name"
-          label="Your name"
+          label={t("auth.name")}
           autoComplete="name"
           errorText={errors?.name?.message}
           {...register("name")}
@@ -66,7 +68,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
         <InputText
           data-testid="email"
           field="email"
-          label="Email"
+          label={t("auth.email")}
           autoComplete="email"
           errorText={errors?.email?.message}
           {...register("email")}
@@ -74,7 +76,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
         <InputText
           data-testid="password"
           field="password"
-          label="Password"
+          label={t("auth.password")}
           passwordHelper
           autoComplete="new-password"
           errorText={errors?.password?.message}
@@ -83,7 +85,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
         <InputText
           data-testid="confirm-password"
           field="confirmPassword"
-          label="Confirm Password"
+          label={t("auth.confirmPassword")}
           passwordHelper
           autoComplete="new-password"
           errorText={errors?.confirmPassword?.message}
@@ -95,7 +97,7 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           disabled={isFormError || isAnyFieldEmpty}
           isLoading={isLoading}
         >
-          Submit
+          {t("auth.submit")}
         </Button>
         {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
         {successMsg && (
@@ -106,13 +108,13 @@ const RegisterCard = ({ handleToggleCard }: IAuthCard) => {
           />
         )}
         <p className="text-center text-white mt-2">
-          Already have an account?{" "}
+          {t("auth.haveAccount")}{" "}
           <span
             data-testid="switch-to-login"
             onClick={handleToggleCard}
             className="font-bold cursor-pointer"
           >
-            Login
+            {t("auth.login")}
           </span>
         </p>
       </form>

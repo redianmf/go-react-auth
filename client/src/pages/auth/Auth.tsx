@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import LanguageSelector from "../../components/LanguageSelector";
 import LoginCard from "./components/LoginCard";
 import RegisterCard from "./components/RegisterCard";
 import RingScene from "./components/RingScene";
@@ -27,7 +28,10 @@ const Auth = () => {
           </div>
         </section>
       )}
-      <div className="h-screen overflow-hidden bg-gray-900 grid grid-cols-2 gap-3 ">
+      <div className="h-screen overflow-hidden bg-gray-900 grid grid-cols-2 gap-3 relative">
+        <div className="absolute top-0 left-0 z-20 m-1">
+          <LanguageSelector />
+        </div>
         <section className="hidden md:block">
           <RingScene setLoadingPercentage={setLoadingPercentage} />
         </section>

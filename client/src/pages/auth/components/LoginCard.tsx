@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import useLogin from "../../../hooks/auth/useLogin";
 
 import Alert from "../../../components/Alert";
@@ -12,6 +13,7 @@ import { IAuthCard } from "../../../types/interfaces";
 import { AlertType, LoginProps } from "../../../types/types";
 
 const LoginCard = ({ handleToggleCard }: IAuthCard) => {
+  const { t } = useTranslation();
   const { handleLogin, isLoading, errorMsg } = useLogin();
 
   const {
@@ -43,7 +45,7 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
         <InputText
           data-testid="email"
           field="email"
-          label="Email"
+          label={t("auth.email")}
           autoComplete="email"
           errorText={errors?.email?.message}
           {...register("email")}
@@ -51,7 +53,7 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
         <InputText
           data-testid="password"
           field="password"
-          label="Password"
+          label={t("auth.password")}
           autoComplete="current-password"
           errorText={errors?.password?.message}
           passwordHelper
@@ -63,18 +65,18 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
           disabled={isFormError || isAnyFieldEmpty}
           isLoading={isLoading}
         >
-          Submit
+          {t("auth.submit")}
         </Button>
       </form>
       {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
       <p className="text-center text-white mt-2">
-        Don't have an account?{" "}
+        {t("auth.noAccount")}{" "}
         <span
           onClick={handleToggleCard}
           data-testid="switch-to-register"
           className="font-bold cursor-pointer"
         >
-          Register
+          {t("auth.register")}
         </span>
       </p>
     </motion.div>
