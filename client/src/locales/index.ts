@@ -3,11 +3,11 @@ import { initReactI18next } from "react-i18next";
 
 import { ILanguageOptions } from "../types/interfaces";
 
-import { en, id } from "./lang";
+import { en, id, zod_en, zod_id } from "./lang";
 
 const resources = {
-  en: { translation: en },
-  id: { translation: id },
+  en: { translation: en, zod: zod_en },
+  id: { translation: id, zod: zod_id },
 };
 
 export const DefaultLang: string = "en";
@@ -23,4 +23,7 @@ i18next.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
+  debug: true,
 });
+
+i18next.loadNamespaces("zod");

@@ -1,9 +1,12 @@
 import { z } from "zod";
+import { makeZodI18nMap } from "zod-i18n-map";
+
+z.setErrorMap(makeZodI18nMap({ ns: "zod" }));
 
 const uppercaseValidation = new RegExp(/[A-Z]/);
 const lowercaseValidation = new RegExp(/[a-z]/);
 const numberValidation = new RegExp(/[0-9]/);
-const emailValidation = z.string().email({ message: "Invalid email address" });
+const emailValidation = z.string().email();
 const passwordValidation = z
   .string()
   .min(6)

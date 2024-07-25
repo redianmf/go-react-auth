@@ -1,4 +1,4 @@
-import { IPages } from "../pageTranslationTypes";
+import { IPages } from "../../pageTranslationTypes";
 
 export const en: IPages = {
   auth: {
