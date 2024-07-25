@@ -1,5 +1,6 @@
 export interface IPages {
   auth: IAuthPage;
+  home: IHomePage;
 }
 
 interface IAuthPage {
@@ -12,4 +13,9 @@ interface IAuthPage {
   haveAccount: string;
   register: string;
   login: string;
+}
+
+interface IHomePage {
+  logout: string;
+  welcome: string;
 }

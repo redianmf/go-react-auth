@@ -12,4 +12,8 @@ export const id: IPages = {
     register: "Daftar",
     submit: "Kirim",
   },
+  home: {
+    logout: "Aku ingin pulang",
+    welcome: "Selamat datang di Middle Earth,",
+  },
 };

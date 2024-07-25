@@ -12,4 +12,8 @@ export const en: IPages = {
     register: "Register",
     submit: "Submit",
   },
+  home: {
+    logout: "I wanna back home",
+    welcome: "Welcome to Middle Earth,",
+  },
 };
