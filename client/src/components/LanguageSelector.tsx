@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useRef, useState } from "react";
 import useLocale from "../hooks/common/useLocale";
 import useToggle from "../hooks/common/useToggle";
 
@@ -8,7 +7,7 @@ import { LanguageOptions } from "../locales";
 import { ILanguageOptions } from "../types/interfaces";
 
 const LanguageSelector = () => {
-  const { i18n } = useTranslation();
+  const elementRef = useRef<HTMLDivElement>(null);
   const [selectedLang, setSelectedLang] = useState<ILanguageOptions>(
     LanguageOptions[0]
   );
@@ -17,7 +16,6 @@ const LanguageSelector = () => {
 
   const handleClickLang = (lang: string) => {
     handleChangeLang(lang);
-    i18n.changeLanguage(lang);
     handleToggle();
   };
 
@@ -28,12 +26,30 @@ const LanguageSelector = () => {
     setSelectedLang(language);
   };
 
+  const handleOnblur = (e: MouseEvent) => {
+    if (!open) return;
+
+    if (
+      elementRef.current &&
+      !elementRef?.current?.contains(e?.target as Node)
+    ) {
+      handleToggle();
+    }
+  };
+
   useEffect(() => {
     getSelectedLang();
   }, [currentLang]);
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOnblur, true);
+    return () => {
+      document.removeEventListener("mousedown", handleOnblur, true);
+    };
+  });
+
   return (
-    <div className="relative glass-bg">
+    <div className="relative glass-bg" ref={elementRef}>
       <LanguageItem
         country={selectedLang?.country}
         icon={selectedLang?.icon}
@@ -50,6 +66,7 @@ const LanguageSelector = () => {
           {LanguageOptions.map((option, idx) => (
             <>
               <LanguageItem
+                key={option.country}
                 callback={() => handleClickLang(option.lang)}
                 country={option.country}
                 icon={option.icon}
@@ -67,15 +84,10 @@ const LanguageSelector = () => {
 interface ILanguageItem extends ILanguageOptions {
   callback?: () => void;
 }
-const LanguageItem: React.FC<ILanguageItem> = ({
-  lang,
-  country,
-  icon,
-  callback,
-}) => {
+const LanguageItem: React.FC<ILanguageItem> = ({ country, icon, callback }) => {
   return (
     <div
-      key={lang}
+      key={country}
       onClick={callback}
       className="flex items-center gap-2 px-3 py-2 transition-all duration-300 hover:bg-gold rounded-xl cursor-pointer"
     >
