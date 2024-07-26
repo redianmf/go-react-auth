@@ -6,8 +6,14 @@ import { ILanguageOptions } from "../types/interfaces";
 import { en, id, zod_en, zod_id } from "./lang";
 
 const resources = {
-  en: { translation: en, zod: zod_en },
-  id: { translation: id, zod: zod_id },
+  en: {
+    translation: en,
+    zod: zod_en,
+  },
+  id: {
+    translation: id,
+    zod: zod_id,
+  },
 };
 
 export const DefaultLang: string = "en";

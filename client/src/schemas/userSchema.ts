@@ -3,23 +3,39 @@ import { makeZodI18nMap } from "zod-i18n-map";
 
 z.setErrorMap(makeZodI18nMap({ ns: "zod" }));
 
-const uppercaseValidation = new RegExp(/[A-Z]/);
-const lowercaseValidation = new RegExp(/[a-z]/);
-const numberValidation = new RegExp(/[0-9]/);
 const emailValidation = z.string().email();
-const passwordValidation = z
-  .string()
-  .min(6)
-  .max(64)
-  .regex(uppercaseValidation, {
-    message: "Password must contain at least 1 uppercase",
-  })
-  .regex(lowercaseValidation, {
-    message: "Password must contain at least 1 lowercase",
-  })
-  .regex(numberValidation, {
-    message: "Password must contain at least 1 number",
-  });
+const passwordBaseValidation = z.string().min(6).max(64);
+const passwordAdditionalValidation = z.string().superRefine((val, ctx) => {
+  const uppercasePattern = /[A-Z]/;
+  const lowercasePattern = /[a-z]/;
+  const numberPattern = /[0-9]/;
+
+  if (!uppercasePattern.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: "custom.uppercase" },
+    });
+  }
+
+  if (!lowercasePattern.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: "custom.lowercase" },
+    });
+  }
+
+  if (!numberPattern.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: "custom.contain-number" },
+    });
+  }
+});
+
+const passwordValidation = z.intersection(
+  passwordBaseValidation,
+  passwordAdditionalValidation
+);
 
 export const LoginSchema = z.object({
   email: emailValidation,
@@ -36,9 +52,9 @@ export const RegisterSchema = z
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
-        code: "custom",
-        message: "Password did not match",
+        code: z.ZodIssueCode.custom,
         path: ["confirmPassword"],
+        params: { i18n: "custom.password_not_match" },
       });
     }
   });

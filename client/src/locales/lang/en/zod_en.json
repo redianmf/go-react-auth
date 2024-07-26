@@ -133,5 +133,15 @@
     "never": "never",
     "map": "map",
     "set": "set"
-  }
+  },
+  "custom": {
+    "password_not_match": "Password don't match",
+    "uppercase": "Should contain uppercase",
+    "lowercase": "Should contain lowercase",
+    "contain-number": "Should contain number"
+  },
+  "name": "",
+  "email": "",
+  "password": "",
+  "confirmPassword": ""
 }

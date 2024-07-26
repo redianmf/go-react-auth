@@ -108,5 +108,15 @@
     "never": "never",
     "map": "map",
     "set": "set"
-  }
+  },
+  "custom": {
+    "password_not_match": "Sandi tidak sama",
+    "uppercase": "Harus mengandung huruf besar",
+    "lowercase": "Harus mengandung huruf kecil",
+    "contain-number": "Harus mengandung angka"
+  },
+  "name": "Format {{validation}} tidak valid",
+  "email": "Format {{validation}} tidak valid",
+  "password": "Format {{validation}} tidak valid",
+  "confirmPassword": "Format {{validation}} tidak valid"
 }
