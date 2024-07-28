@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IRenewToken } from "../types/interfaces";
+import { REFRESH_TOKEN_URL } from "./endpoints";
 import { renewToken } from "./renewToken";
 
 // Create axios instance
@@ -31,10 +32,10 @@ API.interceptors.response.use(
     if (!accessToken || errCode !== 401) return Promise.reject(err);
 
     // logout if refresh token compromised
-    if (errCode === 401) {
+    if (errCode === 401 && originalConfig.url === REFRESH_TOKEN_URL) {
       localStorage.clear();
       API.defaults.headers.common["Authorization"] = "";
-      window.location.href = "../auth";
+      window.location.href = "/auth";
     }
 
     try {

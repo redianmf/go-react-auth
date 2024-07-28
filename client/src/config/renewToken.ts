@@ -9,8 +9,8 @@ export const renewToken = async (
     refresh_token: refreshToken,
   });
 
-  const newAccessToken = response?.data?.access_token;
-  const newRefreshToken = response?.data?.refresh_token;
+  const newAccessToken = response?.data?.data?.token?.access_token;
+  const newRefreshToken = response?.data?.data?.token?.refresh_token;
 
   return { newAccessToken, newRefreshToken };
 };

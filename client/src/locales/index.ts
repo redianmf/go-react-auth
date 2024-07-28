@@ -29,7 +29,7 @@ i18next.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-  debug: true,
+  debug: false,
 });
 
 i18next.loadNamespaces("zod");

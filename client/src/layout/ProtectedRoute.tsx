@@ -8,8 +8,6 @@ const ProtectedRoute = () => {
   // Clear localstorage
   if (!isAuth) localStorage.clear();
 
-  // Logout function
-
   return isAuth ? <Outlet /> : <Navigate to="/auth" replace />;
 };
 
