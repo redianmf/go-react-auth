@@ -77,6 +77,54 @@ paths:
       summary: dummy endpoint
       tags:
       - Dummy
+  /auth/google/callback:
+    post:
+      description: Google OAuth2 Login Callback
+      parameters:
+      - description: code from google oauth2
+        in: query
+        name: code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              data:
+                properties:
+                  token:
+                    $ref: '#/definitions/models.AuthToken'
+                  user:
+                    $ref: '#/definitions/models.UserApiResponse'
+                type: object
+              message:
+                type: string
+            type: object
+      summary: google login callback
+      tags:
+      - Auth
+  /auth/google/login:
+    get:
+      description: Google OAuth2 Login
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              code:
+                type: number
+              url:
+                type: string
+            type: object
+      summary: google login
+      tags:
+      - Auth
   /auth/login:
     post:
       consumes:

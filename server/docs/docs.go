@@ -52,6 +52,81 @@ const docTemplate = `{
                 }
             }
         },
+        "/auth/google/callback": {
+            "post": {
+                "description": "Google OAuth2 Login Callback",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "google login callback",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "code from google oauth2",
+                        "name": "code",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "$ref": "#/definitions/models.AuthToken"
+                                        },
+                                        "user": {
+                                            "$ref": "#/definitions/models.UserApiResponse"
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/google/login": {
+            "get": {
+                "description": "Google OAuth2 Login",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "google login",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/auth/login": {
             "post": {
                 "description": "Login user",

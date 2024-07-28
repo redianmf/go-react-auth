@@ -16,6 +16,12 @@ import (
 	"golang.org/x/oauth2"
 )
 
+// @Summary google login
+// @Description Google OAuth2 Login
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} object{code=number,url=string}
+// @Router /auth/google/login [get]
 func GoogleOAuthLogin(c *gin.Context) {
 	oAuthState := generateStateOAuth()
 	u := config.GoogleOauthConfig.AuthCodeURL(oAuthState, oauth2.AccessTypeOffline)
@@ -26,6 +32,13 @@ func GoogleOAuthLogin(c *gin.Context) {
 	})
 }
 
+// @Summary google login callback
+// @Description Google OAuth2 Login Callback
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} object{code=number,message=string,data=object{user=models.UserApiResponse,token=models.AuthToken}}
+// @Param code query string false "code from google oauth2"
+// @Router /auth/google/callback [post]
 func GoogleOAuthCallback(c *gin.Context) {
 	var (
 		user            models.User
