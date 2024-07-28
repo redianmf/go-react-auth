@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import useGoogleLogin from "../../../hooks/auth/useGoogleLogin";
 import useLogin from "../../../hooks/auth/useLogin";
 
 import { FcGoogle } from "react-icons/fc";
@@ -16,6 +17,8 @@ import { AlertType, LoginProps } from "../../../types/types";
 const LoginCard = ({ handleToggleCard }: IAuthCard) => {
   const { t } = useTranslation();
   const { handleLogin, isLoading, errorMsg } = useLogin();
+  const { handleGoogleLogin, isLoadingGoogleOauth, errorMsgGoogleOauth } =
+    useGoogleLogin();
 
   const {
     register,
@@ -70,6 +73,9 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
         </Button>
       </form>
       {errorMsg && <Alert type={AlertType.ERROR} message={errorMsg} />}
+      {errorMsgGoogleOauth && (
+        <Alert type={AlertType.ERROR} message={errorMsgGoogleOauth} />
+      )}
       <p className="text-center text-white mt-2">
         {t("auth.noAccount")}{" "}
         <span
@@ -81,7 +87,12 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
         </span>
       </p>
       <div className="separator text-gold my-2">OR</div>
-      <Button data-testid="google-login" disabled={false} isLoading={isLoading}>
+      <Button
+        onClick={handleGoogleLogin}
+        data-testid="google-login"
+        disabled={isLoadingGoogleOauth}
+        isLoading={isLoading}
+      >
         <div className="flex justify-center items-center gap-3">
           <FcGoogle className="text-3xl" />
           {t("auth.loginGoogle")}
