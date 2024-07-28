@@ -15,7 +15,7 @@ func ValidateAuth(c *gin.Context) {
 	// Get JWT from header
 	tokenString, err := GetJWT(c.GetHeader("Authorization"))
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
 			"error": "token not found",
 		})
 		return

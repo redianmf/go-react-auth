@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/redianmf/go-react-auth/config"
 	"github.com/redianmf/go-react-auth/database"
 	"github.com/redianmf/go-react-auth/initializers"
 	"github.com/redianmf/go-react-auth/middlewares"
@@ -13,6 +14,7 @@ import (
 func init() {
 	initializers.LoadEnv()
 	database.ConnectDB()
+	config.InitGoogleOauthConfig()
 }
 
 // @title Go React Auth Backend
