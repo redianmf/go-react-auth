@@ -13,10 +13,10 @@ go mod tidy
 cp .env.example .env
 ```
 
-Create postgres database, setup .env
+Create postgres database, setup .env: use your own credentials
 
 ```bash
-make run
+fresh
 ```
 
 More info: [Swagger API Documentation](http://localhost:8080/api/v1/swagger/index.html)
