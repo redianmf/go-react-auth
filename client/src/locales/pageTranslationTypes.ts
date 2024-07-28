@@ -13,6 +13,7 @@ interface IAuthPage {
   haveAccount: string;
   register: string;
   login: string;
+  loginGoogle: string;
 }
 
 interface IHomePage {

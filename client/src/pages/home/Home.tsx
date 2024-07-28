@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import useDummyResource from "../../hooks/auth/useDummyResource";
 import useLogout from "../../hooks/auth/useLogout";
 
 import Button from "../../components/Button";
@@ -10,7 +12,14 @@ import RingMarkings from "../../assets/images/ring-markings.svg";
 const Home = () => {
   const { t } = useTranslation();
   const { handleLogout, isLoading } = useLogout();
-  const user = JSON.parse(localStorage.user) || {};
+  const { handleGetDummyRes } = useDummyResource();
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.user)
+    : {};
+
+  useEffect(() => {
+    handleGetDummyRes();
+  }, []);
 
   return (
     <div className="h-screen max-h-screen overflow-hidden bg-gray-900 flex justify-center items-center relative">

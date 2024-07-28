@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import useLogin from "../../../hooks/auth/useLogin";
 
+import { FcGoogle } from "react-icons/fc";
 import Alert from "../../../components/Alert";
 import Button from "../../../components/Button";
 import InputText from "../../../components/InputText";
@@ -79,6 +80,13 @@ const LoginCard = ({ handleToggleCard }: IAuthCard) => {
           {t("auth.register")}
         </span>
       </p>
+      <div className="separator text-gold my-2">OR</div>
+      <Button data-testid="google-login" disabled={false} isLoading={isLoading}>
+        <div className="flex justify-center items-center gap-3">
+          <FcGoogle className="text-3xl" />
+          {t("auth.loginGoogle")}
+        </div>
+      </Button>
     </motion.div>
   );
 };

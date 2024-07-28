@@ -11,6 +11,7 @@ export const id: IPages = {
     login: "Masuk",
     register: "Daftar",
     submit: "Kirim",
+    loginGoogle: "Masuk dengan Google",
   },
   home: {
     logout: "Aku ingin pulang",

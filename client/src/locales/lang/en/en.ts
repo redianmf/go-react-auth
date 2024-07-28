@@ -11,6 +11,7 @@ export const en: IPages = {
     login: "Login",
     register: "Register",
     submit: "Submit",
+    loginGoogle: "Login with Google",
   },
   home: {
     logout: "I wanna back home",
