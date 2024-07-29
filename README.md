@@ -29,5 +29,9 @@ npm i
 ```
 
 ```bash
+cp .env.example .env
+```
+
+```bash
 npm run dev
 ```
