@@ -93,12 +93,13 @@ func GoogleOAuthCallback(c *gin.Context) {
 			})
 			return
 		}
+
+		tx.Where("email = ?", userInfo["email"].(string)).First(&existingUser)
 	}
 
 	// TODO:Save google oauth data to db
 
 	// Create own token
-	tx.Where("email = ?", userInfo["email"].(string)).First(&existingUser)
 	jwtService := services.Jwt{}
 	authToken, err := jwtService.CreateAuthToken(existingUser)
 	if err != nil {
